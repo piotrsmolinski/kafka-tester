@@ -6,7 +6,7 @@
 
   <groupId>dev.psmolinski.kafka</groupId>
   <artifactId>kafka-tester</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
 
   <description>Producer and consumer applications</description>
 
@@ -21,7 +21,7 @@
     <connection>scm:git:git://github.com/piotrsmolinski/kafka-tester.git</connection>
     <developerConnection>scm:git:git@github.com:piotrsmolinski/kafka-tester.git</developerConnection>
     <url>https://github.com/piotrsmolinski/kafka-tester</url>
-    <tag>v1.0.0</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <repositories>
