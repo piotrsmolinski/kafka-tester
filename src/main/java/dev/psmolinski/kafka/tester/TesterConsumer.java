@@ -38,7 +38,7 @@ public class TesterConsumer {
                 ConsumerRecords<String,String> records = consumer.poll(Duration.ofMillis(interval));
                 long t1 = System.currentTimeMillis();
 
-                logger.info("Polled {} records; latency {}", records.count(), t1-t0);
+                logger.info("Polled {} record(s); poll time {}", records.count(), t1-t0);
 
                 for (ConsumerRecord<String,String> record : records) {
 
