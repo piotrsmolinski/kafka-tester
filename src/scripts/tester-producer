@@ -1,0 +1,5 @@
+#!/bin/bash
+
+TESTER_DIR=$(readlink -f $(dirname $0)/..)
+
+java -cp $TESTER_DIR/lib/'*' dev.psmolinski.kafka.tester.TesterProducer "$@"
