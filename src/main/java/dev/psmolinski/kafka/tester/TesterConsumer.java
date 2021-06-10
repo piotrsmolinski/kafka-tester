@@ -43,9 +43,12 @@ public class TesterConsumer {
                 for (ConsumerRecord<String,String> record : records) {
 
                     logger.info(
-                            "Received record from partition {}; latency {}",
+                            "Received record, key: {}, latency: {}, partition: {}, offset: {}",
+                            record.key(),
+                            t1-record.timestamp(),
                             record.partition(),
-                            t1-record.timestamp());
+                            record.offset()
+                    );
 
                 }
 

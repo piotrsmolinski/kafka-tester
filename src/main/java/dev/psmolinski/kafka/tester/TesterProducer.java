@@ -62,13 +62,19 @@ public class TesterProducer {
 
                 try {
 
-                    future.get();
+                    RecordMetadata m = future.get();
 
-                    logger.info("Send SUCCESS, latency: {}", (System.currentTimeMillis()-t0));
+                    logger.info(
+                            "Send SUCCESS, key: {}, latency: {}, partition: {}, offset: {}",
+                            key,
+                            System.currentTimeMillis()-t0,
+                            m.partition(),
+                            m.offset()
+                    );
 
                 } catch (ExecutionException e) {
 
-                    logger.info("Send FAILURE, latency: {}", (System.currentTimeMillis()-t0));
+                    logger.info("Send FAILURE, key: {}, latency: {}", key, System.currentTimeMillis()-t0);
 
                     logger.warn("Failure details", e.getCause());
 
