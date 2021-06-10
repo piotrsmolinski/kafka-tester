@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -42,13 +43,17 @@ public class TesterProducer {
                 }
 
                 long t0 = System.currentTimeMillis();
+
+                String key = UUID.randomUUID().toString();
+                String message = sdf.format(new Date(t0));
+
                 Future<RecordMetadata> future =  producer.send(
                         new ProducerRecord<String, String>(
                                 topic,
                                 null,
                                 t0,
-                                null,
-                                sdf.format(new Date(curr)),
+                                key,
+                                message,
                                 null
                         )
                 );
