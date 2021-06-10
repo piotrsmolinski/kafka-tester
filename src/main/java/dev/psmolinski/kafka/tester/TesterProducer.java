@@ -35,14 +35,10 @@ public class TesterProducer {
                 new StringSerializer(),
                 new StringSerializer())) {
 
-            long next = System.currentTimeMillis();
             for (;;) {
-                long curr = System.currentTimeMillis();
-                if (next>curr) {
-                    Thread.sleep(next-curr);
-                }
 
                 long t0 = System.currentTimeMillis();
+                long t1;
 
                 String key = UUID.randomUUID().toString();
                 String message = sdf.format(new Date(t0));
@@ -64,23 +60,31 @@ public class TesterProducer {
 
                     RecordMetadata m = future.get();
 
+                    t1 = System.currentTimeMillis();
+
                     logger.info(
                             "Send SUCCESS, key: {}, latency: {}, partition: {}, offset: {}",
                             key,
-                            System.currentTimeMillis()-t0,
+                            t1-t0,
                             m.partition(),
                             m.offset()
                     );
 
                 } catch (ExecutionException e) {
 
-                    logger.info("Send FAILURE, key: {}, latency: {}", key, System.currentTimeMillis()-t0);
+                    t1 = System.currentTimeMillis();
+
+                    logger.info("Send FAILURE, key: {}, latency: {}", key, t1-t0);
 
                     logger.warn("Failure details", e.getCause());
 
                 }
 
-                next += interval;
+                long remaining = interval - (t1-t0);
+
+                if (remaining>0) {
+                    Thread.sleep(remaining);
+                }
 
             }
 
